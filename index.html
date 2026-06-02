@@ -14,7 +14,10 @@
     <div class="curtain-container" id="curtainSection">
         <div class="curtain left-curtain"></div>
         <div class="curtain right-curtain"></div>
-        <div class="welcome-btn" id="openBtn">👆</div>
+        <div class="welcome-btn" id="openBtn">
+            <span class="btn-hand">👆</span>
+            <span class="btn-text">Hap Ftesën</span>
+        </div>
     </div>
 
     <canvas id="fireworksCanvas"></canvas>
@@ -22,26 +25,52 @@
 
     <div class="invitation-container hidden" id="mainContent">
 
+        <!-- PAGE 1: Heart shaped hero -->
         <section class="page profile-page" id="page1">
-            <div class="content-box">
-                <div class="cupid-icon">🏹</div>
-                <h1 class="main-names">Isti & Neda</h1>
-                <div class="divider"></div>
-                <p class="welcome-speech">
-                    YOU ARE CORDIALLY INVITED TO CELEBRATE THE WEDDING OF<br><br>
-                    Me emrin e Zotit, të Plotfuqishmit dhe Mëshirëplotit,
-                    kemi nderin dhe kënaqësinë t'ju ftojmë të bëheni pjesë e kapitullit tonë më të bukur.
-                    Udhëtimi ynë fillon këtu...
-                </p>
-                <div class="scroll-arrow"><i class="fa-solid fa-chevron-down"></i></div>
+            <div class="heart-frame-wrapper">
+                <div class="floating-flowers">
+                    <span class="fl fl1">🌸</span>
+                    <span class="fl fl2">🌺</span>
+                    <span class="fl fl3">🌹</span>
+                    <span class="fl fl4">🌸</span>
+                    <span class="fl fl5">💐</span>
+                    <span class="fl fl6">🌺</span>
+                    <span class="fl fl7">🌸</span>
+                    <span class="fl fl8">🌹</span>
+                </div>
+                <div class="heart-card">
+                    <div class="heart-shape-bg"></div>
+                    <div class="heart-card-inner">
+                        <div class="cupid-icon">🏹</div>
+                        <h1 class="main-names">Isti & Neda</h1>
+                        <div class="golden-divider"><span>✦</span></div>
+                        <p class="welcome-speech">
+                            YOU ARE CORDIALLY INVITED TO CELEBRATE THE WEDDING OF<br><br>
+                            Me emrin e Zotit, të Plotfuqishmit dhe Mëshirëplotit,
+                            kemi nderin dhe kënaqësinë t'ju ftojmë të bëheni pjesë e kapitullit tonë më të bukur.
+                            Udhëtimi ynë fillon këtu...
+                        </p>
+                        <div class="scroll-arrow"><i class="fa-solid fa-chevron-down"></i></div>
+                    </div>
+                </div>
+                <div class="side-flowers-left">
+                    <div class="flower-branch branch-l">🌿</div>
+                    <div class="flower-branch branch-l2">🌷</div>
+                    <div class="flower-branch branch-l3">🌸</div>
+                </div>
+                <div class="side-flowers-right">
+                    <div class="flower-branch branch-r">🌿</div>
+                    <div class="flower-branch branch-r2">🌷</div>
+                    <div class="flower-branch branch-r3">🌸</div>
+                </div>
             </div>
         </section>
 
+        <!-- PAGE 2: Scratch -->
         <section class="page scroll-reveal" id="page2">
             <div class="content-box">
                 <h2 class="section-title">Reveal</h2>
                 <p class="instructions">Gërvish të tre rrathët për të zbuluar datën e madhe</p>
-
                 <div class="scratch-wrapper">
                     <div class="scratch-item">
                         <canvas id="canvasDay" width="100" height="100"></canvas>
@@ -56,11 +85,11 @@
                         <div class="secret-value">2026</div>
                     </div>
                 </div>
-
                 <h1 id="marriageText" class="marriage-text">We're getting married!</h1>
             </div>
         </section>
 
+        <!-- PAGE 3: Countdown -->
         <section class="page hidden-countdown scroll-reveal" id="page3">
             <div class="content-box">
                 <h2 class="section-title">Numërimi Mbrapsht</h2>
@@ -81,59 +110,123 @@
             </div>
         </section>
 
+        <!-- PAGE 4: Mosque - ENHANCED -->
         <section class="page scroll-reveal" id="page4">
             <div class="content-box mosque-card">
+                <div class="mosque-bg-scene">
+                    <div class="sky-gradient"></div>
+                    <div class="stars-layer">
+                        <span class="star">✦</span><span class="star">✦</span><span class="star">✦</span>
+                        <span class="star">✦</span><span class="star">✦</span><span class="star">✦</span>
+                        <span class="star">✦</span><span class="star">✦</span>
+                    </div>
+                    <div class="moon-crescent">☽</div>
+                    <div class="mosque-illustration">
+                        <div class="mosque-silhouette">
+                            <div class="mosque-main-dome"></div>
+                            <div class="mosque-side-dome mosque-side-dome-l"></div>
+                            <div class="mosque-side-dome mosque-side-dome-r"></div>
+                            <div class="mosque-body">
+                                <div class="mosque-arch"></div>
+                                <div class="mosque-arch"></div>
+                                <div class="mosque-arch"></div>
+                            </div>
+                            <div class="minaret minaret-l">
+                                <div class="minaret-top"></div>
+                                <div class="minaret-shaft"></div>
+                                <div class="minaret-balcony"></div>
+                            </div>
+                            <div class="minaret minaret-r">
+                                <div class="minaret-top"></div>
+                                <div class="minaret-shaft"></div>
+                                <div class="minaret-balcony"></div>
+                            </div>
+                        </div>
+                        <div class="mosque-reflection"></div>
+                        <div class="mosque-ground"></div>
+                    </div>
+                </div>
+
                 <div class="ribbon-border-top"></div>
                 <div class="ribbon-border-bottom"></div>
                 <div class="ribbon-border-left"></div>
                 <div class="ribbon-border-right"></div>
 
-                <div class="mosque-icon"><i class="fa-solid fa-mosque"></i></div>
-                <p class="invitation-text">
-                    Jeni të ftuar në nikahun tonë, për gëzimin tonë më të madh ku bashkohen dy shpirtra tek
-                    <strong>Xhamia e Namazgjasë</strong>.
-                </p>
-                <div class="time-info">
-                    <p class="hour">Ora 12:00</p>
-                    <p class="welcome-footer">Ju mirëpresim!</p>
+                <div class="mosque-text-section">
+                    <p class="invitation-text">
+                        Jeni të ftuar në nikahun tonë, për gëzimin tonë më të madh ku bashkohen dy shpirtra tek
+                        <strong>Xhamia e Namazgjasë</strong>.
+                    </p>
+                    <div class="time-info">
+                        <p class="hour">Ora 12:00</p>
+                        <p class="welcome-footer">Ju mirëpresim!</p>
+                    </div>
                 </div>
             </div>
         </section>
 
+        <!-- PAGE 5: RSVP + Bunny Animation -->
         <section class="page scroll-reveal" id="page5">
             <div class="content-box rsvp-card" id="rsvpFormCard">
                 <h2 class="rsvp-main-title">Confirm your attendance</h2>
-
                 <div class="form-group">
                     <label>FULL NAME *</label>
                     <input type="text" id="fullName" placeholder="Your name">
                 </div>
-
                 <div class="form-group">
                     <label>WILL YOU ATTEND? *</label>
                     <div class="attendance-options">
-                        <div class="att-option" id="optYes">
-                            <span class="radio-dot"></span> Yes, I'll be there!
-                        </div>
-                        <div class="att-option" id="optNo">
-                            <span class="radio-dot"></span> No, I can't make it
-                        </div>
+                        <div class="att-option" id="optYes"><span class="radio-dot"></span> Yes, I'll be there!</div>
+                        <div class="att-option" id="optNo"><span class="radio-dot"></span> No, I can't make it</div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label>MESSAGE FOR THE COUPLE (OPTIONAL)</label>
                     <textarea id="coupleMessage" rows="4" placeholder="Write us a few words..."></textarea>
                 </div>
-
                 <button class="btn-confirm" id="btnConfirm"><i class="fa-solid fa-paper-plane"></i> Confirm</button>
             </div>
 
+            <!-- BUNNY PAGE - YES -->
             <div class="content-box bunny-page-card hidden" id="bunnyPageCard">
-                <div class="bunny-animation-wrap">
-                    <div class="bunny-graphics" id="bunnyGraphics"></div>
-                    <h2 id="bunnyStatusTitle"></h2>
-                    <p id="bunnyStatusDesc"></p>
+                <div class="bunny-scene" id="bunnyScene">
+                    <!-- Accept scene -->
+                    <div class="accept-scene hidden" id="acceptScene">
+                        <div class="accept-bg-overlay"></div>
+                        <div class="floating-hearts-container" id="heartsContainer"></div>
+                        <div class="flowers-accept">
+                            <span class="fa1">🌸</span><span class="fa2">🌺</span>
+                            <span class="fa3">🌹</span><span class="fa4">🌸</span>
+                            <span class="fa5">💐</span><span class="fa6">🌺</span>
+                        </div>
+                        <div class="bunnies-accept">
+                            <div class="bunny-left" id="bunnyLeft">
+                                <div class="bunny-emoji">🐰</div>
+                            </div>
+                            <div class="bunny-heart">💖</div>
+                            <div class="bunny-right" id="bunnyRight">
+                                <div class="bunny-emoji">🐰</div>
+                            </div>
+                        </div>
+                        <h2 class="accept-title">Ju mirëpresim!</h2>
+                        <p class="accept-desc" id="acceptDescText"></p>
+                    </div>
+
+                    <!-- Decline scene -->
+                    <div class="decline-scene hidden" id="declineScene">
+                        <div class="rain-container" id="rainContainer"></div>
+                        <div class="decline-bg-overlay"></div>
+                        <div class="bunnies-decline">
+                            <div class="bunny-decline-left" id="bunnyDeclineLeft">
+                                <div class="bunny-emoji">🐰</div>
+                            </div>
+                            <div class="bunny-decline-right" id="bunnyDeclineRight">
+                                <div class="bunny-emoji">🐰</div>
+                            </div>
+                        </div>
+                        <h2 class="decline-title">Do na mungoni...</h2>
+                        <p class="decline-desc" id="declineDescText"></p>
+                    </div>
                 </div>
             </div>
 
@@ -149,8 +242,7 @@
                                 <th>Mesazhi</th>
                             </tr>
                         </thead>
-                        <tbody id="adminTableBody">
-                        </tbody>
+                        <tbody id="adminTableBody"></tbody>
                     </table>
                 </div>
                 <button class="btn-confirm" onclick="window.location.reload()" style="margin-top:15px;">Mbyll</button>
