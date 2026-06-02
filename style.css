@@ -1,0 +1,359 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f6f0e5;
+    /* Sfondi i ri: Ilustrim elegant i një çifti mysliman në nikah (me opacitet të ulët që të mos pengojë tekstin) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800' width='100%25' height='100%25'%3E%3Cg fill='%23dfba6b' fill-opacity='0.08'%3E%3Cpath d='M360 280c0-25 15-45 35-45s35 20 35 45v30h-70v-30zm85-15c10-25 30-35 50-35s30 10 30 35v55h-80v-55zm-140 100c0 40 30 70 75 70s75-30 75-70v-30h-150v30zm210 10c0 30 20 50 50 50s50-20 50-50v-40h-100v40zm-240 110c-30 0-80 30-80 80v120h300v-120c0-50-50-80-80-80h-140zm250 20c-20 0-50 20-50 50v130h200v-130c0-30-30-50-50-50h-100z'/%3E%3Ccircle cx='400' cy='180' r='35'/%3E%3Ccircle cx='495' cy='200' r='28'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Fishekzjarret */
+#fireworksCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99;
+}
+
+/* Perdet */
+.curtain-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 105;
+    display: flex;
+}
+
+.curtain {
+    width: 50%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, #a61c1c, #5c0606);
+    transition: transform 1.8s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
+    position: relative;
+}
+
+.curtain::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 40%, rgba(0, 0, 0, 0.25) 50%, transparent 60%);
+    background-size: 30px 100%;
+}
+
+.welcome-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #dfba6b;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    background: #1a1a1a;
+    padding: 12px 35px;
+    border: 2px solid #dfba6b;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    z-index: 110;
+    transition: all 0.3s ease;
+}
+
+.welcome-btn:hover {
+    background: #dfba6b;
+    color: #1a1a1a;
+}
+
+.curtain-container.open .left-curtain {
+    transform: translateX(-100%);
+}
+
+.curtain-container.open .right-curtain {
+    transform: translateX(100%);
+}
+
+.curtain-container.open .welcome-btn {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Struktura e Kontenitorit */
+.invitation-container {
+    max-width: 550px;
+    margin: 0 auto;
+    padding: 20px 15px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Rregullimi i distancave: Nga min-height 100vh e kemi ulur në auto dhe zvogëluar margin/padding */
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 0;
+    /* Distanca shumë më e vogël mes seksioneve */
+    box-sizing: border-box;
+}
+
+.content-box {
+    background: rgba(255, 255, 255, 0.95);
+    width: 100%;
+    padding: 35px 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    box-sizing: border-box;
+    border: 1px solid rgba(223, 186, 107, 0.3);
+}
+
+/* Faqja 1 */
+.main-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4.2rem;
+    color: #841c1c;
+    margin: 0 0 10px 0;
+}
+
+.divider {
+    width: 60px;
+    height: 2px;
+    background: #dfba6b;
+    margin: 0 auto 20px auto;
+}
+
+.welcome-speech {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #444;
+}
+
+.scroll-arrow {
+    margin-top: 25px;
+    font-size: 1.3rem;
+    color: #dfba6b;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-8px);
+    }
+
+    60% {
+        transform: translateY(-4px);
+    }
+}
+
+/* Faqja 2 */
+.section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.6rem;
+    color: #841c1c;
+    letter-spacing: 2px;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.instructions {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.scratch-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 25px 0;
+}
+
+.scratch-item {
+    position: relative;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.scratch-item canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.secret-value {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fcfaf5;
+    color: #841c1c;
+    font-weight: 600;
+    font-size: 1.05rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    font-family: 'Cinzel', serif;
+}
+
+.marriage-text {
+    font-family: 'Great Vibes', cursive;
+    color: #841c1c;
+    font-size: 2.8rem;
+    margin: 20px 0 0 0;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.8s ease;
+    display: none;
+}
+
+.marriage-text.show {
+    display: block;
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Faqja 3 */
+#countdown {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.time-box {
+    background: #841c1c;
+    color: white;
+    padding: 10px 8px;
+    border-radius: 8px;
+    min-width: 65px;
+}
+
+.time-box span {
+    font-size: 1.6rem;
+    font-weight: bold;
+    display: block;
+}
+
+.time-box p {
+    margin: 2px 0 0 0;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+/* Faqja 4 */
+.mosque-card {
+    position: relative;
+    padding: 45px 30px !important;
+    overflow: hidden;
+}
+
+.ribbon-border-top,
+.ribbon-border-bottom {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #dfba6b, transparent);
+}
+
+.ribbon-border-top {
+    top: 12px;
+}
+
+.ribbon-border-bottom {
+    bottom: 12px;
+}
+
+.ribbon-border-left,
+.ribbon-border-right {
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: linear-gradient(180deg, transparent, #dfba6b, transparent);
+}
+
+.ribbon-border-left {
+    left: 12px;
+}
+
+.ribbon-border-right {
+    right: 12px;
+}
+
+.mosque-icon {
+    font-size: 3rem;
+    color: #dfba6b;
+    margin-bottom: 20px;
+}
+
+.invitation-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #222;
+    margin: 0;
+}
+
+.invitation-text strong {
+    color: #841c1c;
+    font-family: 'Cinzel', serif;
+    display: block;
+    font-size: 1.2rem;
+    margin-top: 8px;
+}
+
+.time-info {
+    margin-top: 20px;
+}
+
+.hour {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+.welcome-footer {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.3rem;
+    color: #841c1c;
+    margin: 5px 0 0 0;
+}
