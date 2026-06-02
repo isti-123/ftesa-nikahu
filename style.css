@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2 family=Cinzel:wght@400;600&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
 
 html {
     scroll-behavior: smooth;
@@ -7,9 +7,8 @@ html {
 body {
     margin: 0;
     padding: 0;
-    background-color: #f6f0e5;
-    /* Sfondi i ri: Ilustrim elegant i një çifti mysliman në nikah (me opacitet të ulët që të mos pengojë tekstin) */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800' width='100%25' height='100%25'%3E%3Cg fill='%23dfba6b' fill-opacity='0.08'%3E%3Cpath d='M360 280c0-25 15-45 35-45s35 20 35 45v30h-70v-30zm85-15c10-25 30-35 50-35s30 10 30 35v55h-80v-55zm-140 100c0 40 30 70 75 70s75-30 75-70v-30h-150v30zm210 10c0 30 20 50 50 50s50-20 50-50v-40h-100v40zm-240 110c-30 0-80 30-80 80v120h300v-120c0-50-50-80-80-80h-140zm250 20c-20 0-50 20-50 50v130h200v-130c0-30-30-50-50-50h-100z'/%3E%3Ccircle cx='400' cy='180' r='35'/%3E%3Ccircle cx='495' cy='200' r='28'/%3E%3C/g%3E%3C/svg%3E");
+    background-color: #fcfaf5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 800' width='100%25' height='100%25'%3E%3Cg fill='%23dfba6b' fill-opacity='0.06'%3E%3Cpath d='M360 280c0-25 15-45 35-45s35 20 35 45v30h-70v-30zm85-15c10-25 30-35 50-35s30 10 30 35v55h-80v-55zm-140 100c0 40 30 70 75 70s75-30 75-70v-30h-150v30zm210 10c0 30 20 50 50 50s50-20 50-50v-40h-100v40zm-240 110c-30 0-80 30-80 80v120h300v-120c0-50-50-80-80-80h-140zm250 20c-20 0-50 20-50 50v130h200v-130c0-30-30-50-50-50h-100z'/%3E%3Ccircle cx='400' cy='180' r='35'/%3E%3Ccircle cx='495' cy='200' r='28'/%3E%3C/g%3E%3C/svg%3E");
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -18,8 +17,9 @@ body {
     overflow-x: hidden;
 }
 
-/* Fishekzjarret */
-#fireworksCanvas {
+/* Canvases */
+#fireworksCanvas,
+#goldParticlesCanvas {
     position: fixed;
     top: 0;
     left: 0;
@@ -29,7 +29,7 @@ body {
     z-index: 99;
 }
 
-/* Perdet */
+/* Perdet që rrinë bukur anash */
 .curtain-container {
     position: fixed;
     top: 0;
@@ -38,14 +38,15 @@ body {
     height: 100vh;
     z-index: 105;
     display: flex;
+    transition: pointer-events 0s 2s;
 }
 
 .curtain {
     width: 50%;
     height: 100%;
     background: radial-gradient(circle at 50% 50%, #a61c1c, #5c0606);
-    transition: transform 1.8s cubic-bezier(0.25, 1, 0.5, 1);
-    box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.6);
+    transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7);
     position: relative;
 }
 
@@ -55,8 +56,8 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent 40%, rgba(0, 0, 0, 0.25) 50%, transparent 60%);
-    background-size: 30px 100%;
+    background: linear-gradient(90deg, transparent 40%, rgba(0, 0, 0, 0.3) 50%, transparent 60%);
+    background-size: 35px 100%;
 }
 
 .welcome-btn {
@@ -64,30 +65,38 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: #dfba6b;
-    font-family: 'Cinzel', serif;
-    font-size: 1.2rem;
-    background: #1a1a1a;
-    padding: 12px 35px;
-    border: 2px solid #dfba6b;
-    border-radius: 50px;
+    font-size: 2.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     z-index: 110;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
+    animation: pulseHand 1.8s infinite alternate;
 }
 
-.welcome-btn:hover {
-    background: #dfba6b;
-    color: #1a1a1a;
+@keyframes pulseHand {
+    0% {
+        transform: translate(-50%, -50%) scale(0.95);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+/* Kur hapet perdja rri e fiksuar në anë */
+.curtain-container.open {
+    pointer-events: none;
 }
 
 .curtain-container.open .left-curtain {
-    transform: translateX(-100%);
+    transform: translateX(-85%);
 }
 
 .curtain-container.open .right-curtain {
-    transform: translateX(100%);
+    transform: translateX(85%);
 }
 
 .curtain-container.open .welcome-btn {
@@ -95,62 +104,88 @@ body {
     pointer-events: none;
 }
 
-/* Struktura e Kontenitorit */
+/* Kontenitori dhe Efekti i Ngadaltë i Scroll-it (Fade In) */
 .invitation-container {
-    max-width: 550px;
+    max-width: 500px;
     margin: 0 auto;
-    padding: 20px 15px;
+    padding: 40px 15px;
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
-/* Rregullimi i distancave: Nga min-height 100vh e kemi ulur në auto dhe zvogëluar margin/padding */
 .page {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 25px 0;
-    /* Distanca shumë më e vogël mes seksioneve */
+    padding: 40px 0;
     box-sizing: border-box;
+}
+
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.2s ease-out;
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hidden-countdown {
+    display: none !important;
+}
+
+.show-countdown {
+    display: flex !important;
 }
 
 .content-box {
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.97);
     width: 100%;
-    padding: 35px 25px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    padding: 40px 25px;
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.04);
     text-align: center;
     box-sizing: border-box;
-    border: 1px solid rgba(223, 186, 107, 0.3);
+    border: 1px solid rgba(223, 186, 107, 0.25);
 }
 
-/* Faqja 1 */
+/* Faqja 1: Teatri Style */
+.cupid-icon {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: #841c1c;
+}
+
 .main-names {
     font-family: 'Great Vibes', cursive;
-    font-size: 4.2rem;
+    font-size: 4rem;
     color: #841c1c;
     margin: 0 0 10px 0;
 }
 
 .divider {
-    width: 60px;
-    height: 2px;
+    width: 50px;
+    height: 1px;
     background: #dfba6b;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 25px auto;
 }
 
 .welcome-speech {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: #444;
+    font-size: 0.85rem;
+    line-height: 1.8;
+    color: #555;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 400;
 }
 
 .scroll-arrow {
-    margin-top: 25px;
-    font-size: 1.3rem;
+    margin-top: 35px;
+    font-size: 1.2rem;
     color: #dfba6b;
     animation: bounce 2s infinite;
 }
@@ -174,36 +209,39 @@ body {
     }
 }
 
-/* Faqja 2 */
+/* Faqja 2: Gërvishja */
+.shortcut-title {
+    font-family: 'Cinzel', serif;
+}
+
 .section-title {
     font-family: 'Cinzel', serif;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     color: #841c1c;
     letter-spacing: 2px;
-    margin-top: 0;
-    margin-bottom: 5px;
+    margin: 0 0 5px 0;
 }
 
 .instructions {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
+    color: #777;
+    font-size: 0.85rem;
+    margin-bottom: 25px;
 }
 
 .scratch-wrapper {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin: 25px 0;
+    gap: 12px;
+    margin: 20px 0;
 }
 
 .scratch-item {
     position: relative;
-    width: 95px;
-    height: 95px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
 }
 
 .scratch-item canvas {
@@ -220,10 +258,10 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #fcfaf5;
+    background: #fdfbf7;
     color: #841c1c;
     font-weight: 600;
-    font-size: 1.05rem;
+    font-size: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -235,99 +273,106 @@ body {
     font-family: 'Great Vibes', cursive;
     color: #841c1c;
     font-size: 2.8rem;
-    margin: 20px 0 0 0;
-    opacity: 0;
-    transform: scale(0.8);
-    transition: all 0.8s ease;
+    margin: 25px 0 0 0;
     display: none;
 }
 
 .marriage-text.show {
     display: block;
-    opacity: 1;
-    transform: scale(1);
+    animation: zoomIn 0.8s ease forwards;
 }
 
-/* Faqja 3 */
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Countdown */
 #countdown {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .time-box {
     background: #841c1c;
     color: white;
-    padding: 10px 8px;
-    border-radius: 8px;
+    padding: 12px 6px;
+    border-radius: 6px;
     min-width: 65px;
 }
 
 .time-box span {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: bold;
     display: block;
 }
 
 .time-box p {
-    margin: 2px 0 0 0;
-    font-size: 0.65rem;
+    margin: 3px 0 0 0;
+    font-size: 0.6rem;
     text-transform: uppercase;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
-/* Faqja 4 */
+/* Karta e Xhamisë */
 .mosque-card {
     position: relative;
-    padding: 45px 30px !important;
-    overflow: hidden;
+    padding: 50px 25px !important;
 }
 
 .ribbon-border-top,
 .ribbon-border-bottom {
     position: absolute;
-    left: 12px;
-    right: 12px;
-    height: 2px;
+    left: 15px;
+    right: 15px;
+    height: 1px;
     background: linear-gradient(90deg, transparent, #dfba6b, transparent);
 }
 
 .ribbon-border-top {
-    top: 12px;
+    top: 15px;
 }
 
 .ribbon-border-bottom {
-    bottom: 12px;
+    bottom: 15px;
 }
 
 .ribbon-border-left,
 .ribbon-border-right {
     position: absolute;
-    top: 12px;
-    bottom: 12px;
-    width: 2px;
+    top: 15px;
+    bottom: 15px;
+    width: 1px;
     background: linear-gradient(180deg, transparent, #dfba6b, transparent);
 }
 
 .ribbon-border-left {
-    left: 12px;
+    left: 15px;
 }
 
 .ribbon-border-right {
-    right: 12px;
+    right: 15px;
 }
 
 .mosque-icon {
-    font-size: 3rem;
+    font-size: 2.5rem;
     color: #dfba6b;
     margin-bottom: 20px;
 }
 
 .invitation-text {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: #222;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #333;
     margin: 0;
 }
 
@@ -335,25 +380,279 @@ body {
     color: #841c1c;
     font-family: 'Cinzel', serif;
     display: block;
-    font-size: 1.2rem;
-    margin-top: 8px;
+    font-size: 1.15rem;
+    margin-top: 10px;
+    letter-spacing: 1px;
 }
 
 .time-info {
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .hour {
     font-family: 'Cinzel', serif;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 600;
-    color: #333;
+    color: #444;
     margin: 0;
 }
 
 .welcome-footer {
     font-family: 'Great Vibes', cursive;
-    font-size: 2.3rem;
+    font-size: 2.2rem;
     color: #841c1c;
-    margin: 5px 0 0 0;
+    margin: 8px 0 0 0;
+}
+
+/* FORMULARI RSVP (Fiks si në foton e dytë) */
+.rsvp-card {
+    text-align: left !important;
+    padding: 40px 30px !important;
+}
+
+.rsvp-main-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.8rem;
+    color: #841c1c;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #7e685a;
+    letter-spacing: 1.5px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e1dcd6;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    color: #444;
+    outline: none;
+    box-sizing: border-box;
+    background-color: #faf8f5;
+    transition: border 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #dfba6b;
+}
+
+/* Butonat e Opsioneve (Yes / No) */
+.attendance-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.att-option {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    border: 1px solid #e1dcd6;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #555;
+    background-color: #faf8f5;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.radio-dot {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #b5a499;
+    border-radius: 50%;
+    margin-right: 12px;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+.att-option.selected {
+    border-color: #841c1c;
+    background-color: #fdf9f9;
+    color: #841c1c;
+}
+
+.att-option.selected .radio-dot {
+    background-color: #841c1c;
+    border-color: #841c1c;
+    box-shadow: 0 0 0 3px rgba(132, 28, 28, 0.15);
+}
+
+.btn-confirm {
+    background-color: #bfa391;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.3s;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.btn-confirm:hover {
+    background-color: #a88d7b;
+}
+
+/* KARTA ME LEPURUSHËT (FAQJA PAS RSVP) */
+.bunny-page-card {
+    padding: 50px 30px !important;
+    transition: all 0.6s ease;
+}
+
+.bunny-page-card.accept-bg {
+    background: linear-gradient(45deg, #ffeef4, #fff5f7) !important;
+    border: 1px solid #ffcad4 !important;
+    animation: waveBackground 6s ease infinite alternate;
+    background-size: 200% 200%;
+}
+
+.bunny-page-card.decline-bg {
+    background: linear-gradient(45deg, #f0f2f5, #f7f9fa) !important;
+    border: 1px solid #cfd8dc !important;
+}
+
+@keyframes waveBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.bunny-graphics {
+    font-size: 5rem;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.bunny-page-card h2 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.8rem;
+    margin: 10px 0;
+    font-weight: 400;
+}
+
+.bunny-page-card.accept-bg h2 {
+    color: #d81b60;
+}
+
+.bunny-page-card.decline-bg h2 {
+    color: #455a64;
+}
+
+.bunny-page-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+}
+
+/* ZEMRAT QË FLUTUROJNË TE LEPURUSHAT ACCEPT */
+.floating-heart {
+    position: absolute;
+    color: #ff4081;
+    font-size: 1.2rem;
+    pointer-events: none;
+    animation: floatHeart 2s ease-out infinite;
+    opacity: 0;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-60px) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* PANELI SEKRET I ADMINIT */
+.admin-card {
+    text-align: left !important;
+    background: #fff !important;
+    border: 2px dashed #dfba6b !important;
+}
+
+.admin-card h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    color: #841c1c;
+    margin-top: 0;
+}
+
+.admin-table-wrapper {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 15px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+}
+
+th,
+td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+th {
+    background-color: #fcfaf5;
+    color: #841c1c;
+    font-family: 'Cinzel', serif;
+}
+
+.badge-accept {
+    background: #e8f8f0;
+    color: #2ecc71;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.badge-decline {
+    background: #fdedec;
+    color: #e74c3c;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: bold;
 }

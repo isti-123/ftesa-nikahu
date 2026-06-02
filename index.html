@@ -14,19 +14,22 @@
     <div class="curtain-container" id="curtainSection">
         <div class="curtain left-curtain"></div>
         <div class="curtain right-curtain"></div>
-        <div class="welcome-btn">Kliko për të Hapur</div>
+        <div class="welcome-btn" id="openBtn">👆</div>
     </div>
 
     <canvas id="fireworksCanvas"></canvas>
+    <canvas id="goldParticlesCanvas"></canvas>
 
     <div class="invitation-container hidden" id="mainContent">
 
-        <section class="page" id="page1">
+        <section class="page profile-page" id="page1">
             <div class="content-box">
+                <div class="cupid-icon">🏹</div>
                 <h1 class="main-names">Isti & Neda</h1>
                 <div class="divider"></div>
                 <p class="welcome-speech">
-                    Mirësevini në ftesën tonë digjitale! Me emrin e Zotit, të Plotfuqishmit dhe Mëshirëplotit,
+                    YOU ARE CORDIALLY INVITED TO CELEBRATE THE WEDDING OF<br><br>
+                    Me emrin e Zotit, të Plotfuqishmit dhe Mëshirëplotit,
                     kemi nderin dhe kënaqësinë t'ju ftojmë të bëheni pjesë e kapitullit tonë më të bukur.
                     Udhëtimi ynë fillon këtu...
                 </p>
@@ -34,7 +37,7 @@
             </div>
         </section>
 
-        <section class="page" id="page2">
+        <section class="page scroll-reveal" id="page2">
             <div class="content-box">
                 <h2 class="section-title">Reveal</h2>
                 <p class="instructions">Gërvish të tre rrathët për të zbuluar datën e madhe</p>
@@ -58,7 +61,7 @@
             </div>
         </section>
 
-        <section class="page" id="page3">
+        <section class="page hidden-countdown scroll-reveal" id="page3">
             <div class="content-box">
                 <h2 class="section-title">Numërimi Mbrapsht</h2>
                 <div id="countdown">
@@ -78,26 +81,79 @@
             </div>
         </section>
 
-        <section class="page" id="page4">
+        <section class="page scroll-reveal" id="page4">
             <div class="content-box mosque-card">
                 <div class="ribbon-border-top"></div>
                 <div class="ribbon-border-bottom"></div>
                 <div class="ribbon-border-left"></div>
                 <div class="ribbon-border-right"></div>
 
-                <div class="mosque-icon">
-                    <i class="fa-solid fa-mosque"></i>
-                </div>
-
+                <div class="mosque-icon"><i class="fa-solid fa-mosque"></i></div>
                 <p class="invitation-text">
                     Jeni të ftuar në nikahun tonë, për gëzimin tonë më të madh ku bashkohen dy shpirtra tek
                     <strong>Xhamia e Namazgjasë</strong>.
                 </p>
-
                 <div class="time-info">
                     <p class="hour">Ora 12:00</p>
                     <p class="welcome-footer">Ju mirëpresim!</p>
                 </div>
+            </div>
+        </section>
+
+        <section class="page scroll-reveal" id="page5">
+            <div class="content-box rsvp-card" id="rsvpFormCard">
+                <h2 class="rsvp-main-title">Confirm your attendance</h2>
+
+                <div class="form-group">
+                    <label>FULL NAME *</label>
+                    <input type="text" id="fullName" placeholder="Your name">
+                </div>
+
+                <div class="form-group">
+                    <label>WILL YOU ATTEND? *</label>
+                    <div class="attendance-options">
+                        <div class="att-option" id="optYes">
+                            <span class="radio-dot"></span> Yes, I'll be there!
+                        </div>
+                        <div class="att-option" id="optNo">
+                            <span class="radio-dot"></span> No, I can't make it
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>MESSAGE FOR THE COUPLE (OPTIONAL)</label>
+                    <textarea id="coupleMessage" rows="4" placeholder="Write us a few words..."></textarea>
+                </div>
+
+                <button class="btn-confirm" id="btnConfirm"><i class="fa-solid fa-paper-plane"></i> Confirm</button>
+            </div>
+
+            <div class="content-box bunny-page-card hidden" id="bunnyPageCard">
+                <div class="bunny-animation-wrap">
+                    <div class="bunny-graphics" id="bunnyGraphics"></div>
+                    <h2 id="bunnyStatusTitle"></h2>
+                    <p id="bunnyStatusDesc"></p>
+                </div>
+            </div>
+
+            <div class="content-box admin-card hidden" id="adminPanelCard">
+                <h2>📊 Paneli i Adminit</h2>
+                <p>Lista e konfirmimeve në kohë reale:</p>
+                <div class="admin-table-wrapper">
+                    <table id="adminTable">
+                        <thead>
+                            <tr>
+                                <th>Emri</th>
+                                <th>Statusi</th>
+                                <th>Mesazhi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody">
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn-confirm" onclick="window.location.reload()" style="margin-top:15px;">Mbyll</button>
             </div>
         </section>
 
