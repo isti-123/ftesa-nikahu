@@ -291,9 +291,16 @@ document.addEventListener("DOMContentLoaded", function () {
             if (nameVal.toLowerCase() === "admin123") {
                 btnConfirm.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Duke ngarkuar...";
                 btnConfirm.disabled = true;
-                try {
-                    const resp = await fetch(APPS_SCRIPT_URL);
-                    const records = await resp.json();
+
+                // JSONP - kalon CORS nga çdo device/browser
+                const callbackName = "adminCallback_" + Date.now();
+                const script = document.createElement("script");
+                script.src = APPS_SCRIPT_URL + "?callback=" + callbackName;
+
+                window[callbackName] = function (records) {
+                    // Pastro
+                    delete window[callbackName];
+                    document.body.removeChild(script);
 
                     const adminPanelCard = document.getElementById("adminPanelCard");
                     const adminTableBody = document.getElementById("adminTableBody");
@@ -311,13 +318,18 @@ document.addEventListener("DOMContentLoaded", function () {
                             adminTableBody.innerHTML += `<tr><td>${r.name}</td><td>${badge}</td><td>${r.message || '-'}</td><td style="font-size:0.75rem;color:#999">${r.time || ''}</td></tr>`;
                         });
                     }
-                } catch (err) {
-                    alert("Gabim gjatë marrjes së të dhënave!");
-                    console.error(err);
-                } finally {
+
                     btnConfirm.innerHTML = "<i class='fa-solid fa-paper-plane'></i> Confirm";
                     btnConfirm.disabled = false;
-                }
+                };
+
+                script.onerror = function () {
+                    alert("Gabim gjatë marrjes së të dhënave!");
+                    btnConfirm.innerHTML = "<i class='fa-solid fa-paper-plane'></i> Confirm";
+                    btnConfirm.disabled = false;
+                };
+
+                document.body.appendChild(script);
                 return;
             }
 
