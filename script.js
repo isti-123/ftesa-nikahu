@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const DB_URL = "https://kvdb.io/MN86Sg8vGskvX8XwLg6mRE/rsvp_records";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiBM3K_JEW7Rw30r8YyLqa-gAVKThQVWiktAox8oearQxs7RaXyOAwZZYSXHiec0XA/exec";
 
     // ===== CURTAIN =====
     const curtainSection = document.getElementById("curtainSection");
@@ -17,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ===== SCROLL REVEAL =====
     const revealElements = document.querySelectorAll(".scroll-reveal");
-
     function handleScrollReveal() {
         const triggerBottom = window.innerHeight * 0.9;
         revealElements.forEach(el => {
@@ -192,25 +191,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 7000);
     }
 
-    // ===== RSVP =====
+    // ===== RSVP OPTIONS =====
     const optYes = document.getElementById("optYes");
     const optNo = document.getElementById("optNo");
     let selectedStatus = null;
 
     if (optYes && optNo) {
         optYes.addEventListener("click", () => {
-            optYes.classList.add("selected");
-            optNo.classList.remove("selected");
-            selectedStatus = "Accept";
+            optYes.classList.add("selected"); optNo.classList.remove("selected"); selectedStatus = "Accept";
         });
         optNo.addEventListener("click", () => {
-            optNo.classList.add("selected");
-            optYes.classList.remove("selected");
-            selectedStatus = "Decline";
+            optNo.classList.add("selected"); optYes.classList.remove("selected"); selectedStatus = "Decline";
         });
     }
 
-    // ===== FLOATING HEARTS (accept scene) =====
+    // ===== FLOATING HEARTS =====
     function startFloatingHearts(container) {
         const hearts = ['❤️', '💕', '💖', '💗', '💝', '🩷'];
         const interval = setInterval(() => {
@@ -222,20 +217,18 @@ document.addEventListener("DOMContentLoaded", function () {
             heart.style.bottom = "10%";
             heart.style.fontSize = (Math.random() * 1 + 0.8) + "rem";
             heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
-            heart.style.animationDelay = (Math.random() * 0.5) + "s";
             container.appendChild(heart);
             setTimeout(() => heart.remove(), 4000);
         }, 350);
     }
 
-    // ===== RAIN (decline scene) =====
+    // ===== RAIN =====
     function startRain(container) {
         for (let i = 0; i < 60; i++) {
             const drop = document.createElement("div");
             drop.className = "raindrop";
             drop.style.left = (Math.random() * 100) + "%";
-            const height = Math.random() * 20 + 10;
-            drop.style.height = height + "px";
+            drop.style.height = (Math.random() * 20 + 10) + "px";
             drop.style.animationDuration = (Math.random() * 1 + 0.6) + "s";
             drop.style.animationDelay = (Math.random() * 2) + "s";
             drop.style.opacity = (Math.random() * 0.5 + 0.3);
@@ -243,10 +236,46 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // ===== SHOW BUNNY SCENE =====
+    function showBunnyScene(nameVal) {
+        const rsvpFormCard = document.getElementById("rsvpFormCard");
+        const bunnyPageCard = document.getElementById("bunnyPageCard");
+        rsvpFormCard.style.opacity = "0";
+        rsvpFormCard.style.transition = "opacity 0.5s ease";
+        setTimeout(() => {
+            rsvpFormCard.classList.add("hidden");
+            bunnyPageCard.classList.remove("hidden");
+            if (selectedStatus === "Accept") {
+                document.getElementById("acceptScene").classList.remove("hidden");
+                const acceptDescText = document.getElementById("acceptDescText");
+                if (acceptDescText) acceptDescText.innerHTML = `Faleminderit <strong>${nameVal}</strong>! Rezervimi yt u krye me sukses.<br>Mezi presim të festojmë së bashku në këtë ditë të bekuar! ✨`;
+                setTimeout(() => {
+                    const bl = document.getElementById("bunnyLeft");
+                    const br = document.getElementById("bunnyRight");
+                    if (bl) bl.classList.add("hugging");
+                    if (br) br.classList.add("hugging");
+                }, 400);
+                startFloatingHearts(document.getElementById("heartsContainer"));
+                startGoldRain();
+            } else {
+                document.getElementById("declineScene").classList.remove("hidden");
+                const declineDescText = document.getElementById("declineDescText");
+                if (declineDescText) declineDescText.innerHTML = `Na vjen keq që nuk do mund të jesh me ne, <strong style="color:#9ecae1">${nameVal}</strong>.<br>Por të falenderojmë përzemërsisht që na njoftove! 💙`;
+                const rainContainer = document.getElementById("rainContainer");
+                if (rainContainer) startRain(rainContainer);
+                setTimeout(() => {
+                    const bdl = document.getElementById("bunnyDeclineLeft");
+                    const bdr = document.getElementById("bunnyDeclineRight");
+                    if (bdl) bdl.classList.add("walking");
+                    if (bdr) bdr.classList.add("walking");
+                }, 600);
+            }
+        }, 500);
+    }
+
     // ===== CONFIRM BUTTON =====
     const btnConfirm = document.getElementById("btnConfirm");
     const rsvpFormCard = document.getElementById("rsvpFormCard");
-    const bunnyPageCard = document.getElementById("bunnyPageCard");
 
     if (btnConfirm && rsvpFormCard) {
         btnConfirm.addEventListener("click", async () => {
@@ -258,33 +287,32 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-            // Admin login
+            // ===== ADMIN =====
             if (nameVal.toLowerCase() === "admin123") {
                 btnConfirm.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Duke ngarkuar...";
                 btnConfirm.disabled = true;
                 try {
-                    const response = await fetch(DB_URL);
-                    let records = [];
-                    if (response.ok) { records = await response.json(); }
-                    else if (response.status === 404) { records = []; }
+                    const resp = await fetch(APPS_SCRIPT_URL);
+                    const records = await resp.json();
 
-                    rsvpFormCard.classList.add("hidden");
                     const adminPanelCard = document.getElementById("adminPanelCard");
                     const adminTableBody = document.getElementById("adminTableBody");
-                    if (adminPanelCard && adminTableBody) {
-                        adminPanelCard.classList.remove("hidden");
-                        adminTableBody.innerHTML = records.length === 0
-                            ? "<tr><td colspan='3' style='text-align:center;'>Asnjë përgjigje ende online.</td></tr>"
-                            : "";
+                    rsvpFormCard.classList.add("hidden");
+                    adminPanelCard.classList.remove("hidden");
+
+                    if (!records || records.length === 0) {
+                        adminTableBody.innerHTML = "<tr><td colspan='4' style='text-align:center;color:#999'>Asnjë përgjigje ende.</td></tr>";
+                    } else {
+                        adminTableBody.innerHTML = "";
                         records.forEach(r => {
-                            let badge = r.status === "Accept"
-                                ? "<span class='badge-accept'>✓ Accept</span>"
-                                : "<span class='badge-decline'>✗ Decline</span>";
-                            adminTableBody.innerHTML += `<tr><td>${r.name}</td><td>${badge}</td><td>${r.message || '-'}</td></tr>`;
+                            const badge = r.status === "Accept"
+                                ? "<span class='badge-accept'>✓ Po vjen</span>"
+                                : "<span class='badge-decline'>✗ Nuk vjen</span>";
+                            adminTableBody.innerHTML += `<tr><td>${r.name}</td><td>${badge}</td><td>${r.message || '-'}</td><td style="font-size:0.75rem;color:#999">${r.time || ''}</td></tr>`;
                         });
                     }
                 } catch (err) {
-                    alert("Gabim gjatë marrjes së të dhënave online!");
+                    alert("Gabim gjatë marrjes së të dhënave!");
                     console.error(err);
                 } finally {
                     btnConfirm.innerHTML = "<i class='fa-solid fa-paper-plane'></i> Confirm";
@@ -302,74 +330,20 @@ document.addEventListener("DOMContentLoaded", function () {
             btnConfirm.disabled = true;
 
             try {
-                let currentList = [];
-                const getResponse = await fetch(DB_URL);
-                if (getResponse.ok) { currentList = await getResponse.json(); }
-                else if (getResponse.status === 404) { currentList = []; }
-
-                currentList.push({ name: nameVal, status: selectedStatus, message: msgVal });
-                await fetch(DB_URL, {
+                // Google Apps Script nuk pranon fetch me mode:cors direkt nga file://
+                // Përdorim no-cors për POST — nuk ktheh përgjigje por shkruan në sheet
+                await fetch(APPS_SCRIPT_URL, {
                     method: "POST",
+                    mode: "no-cors",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(currentList)
+                    body: JSON.stringify({ name: nameVal, status: selectedStatus, message: msgVal })
                 });
 
-                rsvpFormCard.style.opacity = "0";
-                rsvpFormCard.style.transition = "opacity 0.5s ease";
-
-                setTimeout(() => {
-                    rsvpFormCard.classList.add("hidden");
-                    if (bunnyPageCard) {
-                        bunnyPageCard.classList.remove("hidden");
-
-                        if (selectedStatus === "Accept") {
-                            // Show accept scene
-                            const acceptScene = document.getElementById("acceptScene");
-                            acceptScene.classList.remove("hidden");
-
-                            const heartsContainer = document.getElementById("heartsContainer");
-                            const acceptDescText = document.getElementById("acceptDescText");
-                            if (acceptDescText) {
-                                acceptDescText.innerHTML = `Faleminderit <strong>${nameVal}</strong>! Rezervimi yt u krye me sukses.<br>Mezi presim të festojmë së bashku në këtë ditë të bekuar! ✨`;
-                            }
-
-                            // Bunnies hug animation
-                            setTimeout(() => {
-                                const bl = document.getElementById("bunnyLeft");
-                                const br = document.getElementById("bunnyRight");
-                                if (bl) bl.classList.add("hugging");
-                                if (br) br.classList.add("hugging");
-                            }, 400);
-
-                            startFloatingHearts(heartsContainer);
-                            startGoldRain();
-
-                        } else {
-                            // Show decline scene
-                            const declineScene = document.getElementById("declineScene");
-                            declineScene.classList.remove("hidden");
-
-                            const rainContainer = document.getElementById("rainContainer");
-                            const declineDescText = document.getElementById("declineDescText");
-                            if (declineDescText) {
-                                declineDescText.innerHTML = `Na vjen keq që nuk do mund të jesh me ne, <strong style="color:#9ecae1">${nameVal}</strong>.<br>Por të falenderojmë përzemërsisht që na njoftove! 💙`;
-                            }
-
-                            if (rainContainer) startRain(rainContainer);
-
-                            // Bunnies walk away
-                            setTimeout(() => {
-                                const bdl = document.getElementById("bunnyDeclineLeft");
-                                const bdr = document.getElementById("bunnyDeclineRight");
-                                if (bdl) bdl.classList.add("walking");
-                                if (bdr) bdr.classList.add("walking");
-                            }, 600);
-                        }
-                    }
-                }, 500);
+                // no-cors nuk na lejon të lexojmë përgjigjen, por dërgimi funksionon
+                showBunnyScene(nameVal);
 
             } catch (error) {
-                alert("Ndodhi një gabim me rrjetin. Ju lutem provoni përsëri klikimin.");
+                alert("Ndodhi një gabim me rrjetin. Ju lutem provoni përsëri.");
                 console.error(error);
             } finally {
                 btnConfirm.innerHTML = "<i class='fa-solid fa-paper-plane'></i> Confirm";
