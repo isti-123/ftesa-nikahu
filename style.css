@@ -61,6 +61,7 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     z-index: 105;
     overflow: hidden;
 }
@@ -73,13 +74,14 @@ body {
     transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1);
     background-size: 200% 100%;
     background-repeat: no-repeat;
+    background-color: #f3ead9;
 }
 
 .left-curtain {
     left: 0;
     background-image: url('images/perde-left.png');
     background-position: right top;
-    background-size: cover;
+    background-size: auto 100%;
     transform-origin: left center;
 }
 
@@ -87,7 +89,7 @@ body {
     right: 0;
     background-image: url('images/perde-right.png');
     background-position: left top;
-    background-size: cover;
+    background-size: auto 100%;
     transform-origin: right center;
 }
 
@@ -121,10 +123,10 @@ body {
 /* ===== LITARI QË BIE KUR HAPET ===== */
 .curtain-rope {
     position: absolute;
-    top: 70%;
+    top: 50%;
     left: 50%;
-    width: 200px;
-    height: 400px;
+    width: 70px;
+    height: 260px;
     transform: translate(-50%, -50%);
     background-image: url('images/litar.png');
     background-repeat: no-repeat;
