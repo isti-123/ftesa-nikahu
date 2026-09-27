@@ -121,13 +121,15 @@ body {
 }
 
 /* ===== LITARI QË BIE KUR HAPET ===== */
+
+/* ===== LITARI QË BIE KUR HAPET ===== */
 .curtain-rope {
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
-    width: 70px;
+    width: 120px;
     height: 260px;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     background-image: url('images/litar.png');
     background-repeat: no-repeat;
     background-position: top center;
@@ -135,6 +137,8 @@ body {
     z-index: 106;
     pointer-events: auto;
     cursor: pointer;
+    transition: transform 1.4s cubic-bezier(0.55, 0.05, 0.85, 0.35) 0.2s,
+        opacity 0.8s ease-in 0.9s;
     opacity: 1;
     animation: ropePulse 1.8s ease-in-out infinite;
 }
