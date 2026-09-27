@@ -109,7 +109,7 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: clamp(140px, 28vh, 260px);
+    height: 42vh;
     background-image: url('images/perde-top.png');
     background-repeat: no-repeat;
     background-position: top center;
