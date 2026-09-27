@@ -28,92 +28,276 @@ body {
     z-index: 99;
 }
 
+/* ========== MUZIKA ========== */
+.music-close-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: #841c1c;
+    color: #fff;
+    border: 2px solid #dfba6b;
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 300;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.music-close-btn:hover {
+    transform: scale(1.08);
+    background: #6b1616;
+}
+
 /* ========== CURTAINS ========== */
 .curtain-container {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     z-index: 105;
-    display: flex;
-    transition: pointer-events 0s 2s;
+    overflow: hidden;
 }
 
 .curtain {
-    width: 50%;
+    position: absolute;
+    top: 0;
     height: 100%;
-    background: radial-gradient(circle at 50% 50%, #a61c1c, #5c0606);
+    width: 50%;
     transition: transform 2.5s cubic-bezier(0.25, 1, 0.5, 1);
-    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7);
-    position: relative;
+    background-size: 200% 100%;
+    background-repeat: no-repeat;
+}
+
+.left-curtain {
+    left: 0;
+    background-image: url('images/perde-left.png');
+    background-position: right top;
+    background-size: cover;
+    transform-origin: left center;
+}
+
+.right-curtain {
+    right: 0;
+    background-image: url('images/perde-right.png');
+    background-position: left top;
+    background-size: cover;
+    transform-origin: right center;
 }
 
 .curtain::before {
-    content: '';
+    display: none;
+}
+
+.curtain::after {
+    display: none;
+}
+
+.curtain {
+    z-index: 1;
+}
+
+/* ===== PJESA STATIKE LART (nuk lëviz kurrë) ===== */
+.curtain-top {
     position: absolute;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent 40%, rgba(0, 0, 0, 0.3) 50%, transparent 60%);
-    background-size: 35px 100%;
+    background-image: url('images/perde-top.png');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 100% auto;
+    z-index: 3;
+    pointer-events: none;
 }
 
-.welcome-btn {
+/* ===== LITARI QË BIE KUR HAPET ===== */
+.curtain-rope {
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
+    width: 200px;
+    height: 400px;
     transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.93);
-    padding: 14px 24px;
-    border-radius: 50px;
+    background-image: url('images/litar.png');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: contain;
+    z-index: 106;
+    pointer-events: auto;
     cursor: pointer;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-    z-index: 110;
-    transition: all 0.5s ease;
-    animation: pulseHand 1.8s infinite alternate;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 1px;
-    color: #841c1c;
-    text-transform: uppercase;
+    opacity: 1;
+    animation: ropePulse 1.8s ease-in-out infinite;
 }
 
-.btn-hand {
-    font-size: 1.8rem;
+@keyframes ropePulse {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.07);
+    }
 }
 
-@keyframes pulseHand {
+.curtain-container.open .curtain-rope {
+    animation: ropeFall 1.4s cubic-bezier(0.55, 0.05, 0.85, 0.35) 0.2s forwards;
+    pointer-events: none;
+}
+
+@keyframes ropeFall {
     0% {
-        transform: translate(-50%, -50%) scale(0.95);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+
+    15% {
+        transform: translate(-50%, calc(-50% - 30px)) scale(1.05);
+        opacity: 1;
     }
 
     100% {
-        transform: translate(-50%, -50%) scale(1.08);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+        transform: translate(-50%, 160vh) rotate(35deg);
+        opacity: 0;
     }
 }
+
+/* welcome-btn u hoq; litari tani është vetë butoni i hapjes */
 
 .curtain-container.open {
     pointer-events: none;
 }
 
 .curtain-container.open .left-curtain {
-    transform: translateX(-85%);
+    transform: translateX(-100%);
 }
 
 .curtain-container.open .right-curtain {
-    transform: translateX(85%);
+    transform: translateX(100%);
 }
 
-.curtain-container.open .welcome-btn {
+/* ========== PAGE 1: Imazh i personalizuar ========== */
+#page1 {
+    padding: 0;
+    min-height: 100vh;
+}
+
+.page1-image-wrapper {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.page1-img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+/* ========== PAGE 4: Imazh i personalizuar (xhamia) ========== */
+.page4-image-wrapper {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.page4-img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* ========== TIMELINE: Orari i ditës ========== */
+.timeline-card {
+    width: 100%;
+}
+
+.timeline-wrapper {
+    position: relative;
+    padding: 30px 0 10px 50px;
+    margin-top: 20px;
+}
+
+.timeline-line {
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    width: 3px;
+    height: calc(100% - 30px);
+    background: rgba(223, 186, 107, 0.25);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.timeline-line-fill {
+    width: 100%;
+    height: 0%;
+    background: linear-gradient(180deg, #dfba6b, #841c1c);
+    border-radius: 3px;
+    transition: height 0.15s linear;
+}
+
+.timeline-items {
+    display: flex;
+    flex-direction: column;
+    gap: 55px;
+}
+
+.timeline-item {
+    position: relative;
     opacity: 0;
-    pointer-events: none;
+    transform: translateX(-15px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.timeline-item.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -50px;
+    top: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #fcfaf5;
+    border: 3px solid rgba(223, 186, 107, 0.5);
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.timeline-item.active .timeline-dot {
+    background: #841c1c;
+    border-color: #dfba6b;
+    box-shadow: 0 0 0 5px rgba(223, 186, 107, 0.25);
+}
+
+.timeline-time {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #841c1c;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+}
+
+.timeline-text {
+    margin: 0;
+    font-size: 1rem;
+    color: #4a3b2a;
+    line-height: 1.4;
 }
 
 /* ========== LAYOUT ========== */
@@ -165,92 +349,6 @@ body {
     border: 1px solid rgba(223, 186, 107, 0.25);
 }
 
-/* ========== PAGE 1: HEART FRAME ========== */
-.profile-page {
-    position: relative;
-    padding: 20px 0 40px;
-}
-
-.heart-frame-wrapper {
-    position: relative;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Floating flowers around */
-.floating-flowers {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 0;
-}
-
-.fl {
-    position: absolute;
-    font-size: 1.6rem;
-    animation: floatFlower 4s ease-in-out infinite alternate;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
-}
-
-.fl1 {
-    top: 2%;
-    left: 2%;
-    animation-delay: 0s;
-    font-size: 2rem;
-}
-
-.fl2 {
-    top: 10%;
-    right: 3%;
-    animation-delay: 0.5s;
-}
-
-.fl3 {
-    top: 30%;
-    left: 0%;
-    animation-delay: 1s;
-    font-size: 1.4rem;
-}
-
-.fl4 {
-    bottom: 30%;
-    right: 0%;
-    animation-delay: 1.5s;
-}
-
-.fl5 {
-    bottom: 15%;
-    left: 3%;
-    animation-delay: 0.8s;
-    font-size: 1.8rem;
-}
-
-.fl6 {
-    bottom: 5%;
-    right: 5%;
-    animation-delay: 1.2s;
-    font-size: 1.5rem;
-}
-
-.fl7 {
-    top: 55%;
-    left: 1%;
-    animation-delay: 0.3s;
-    font-size: 1.2rem;
-}
-
-.fl8 {
-    top: 45%;
-    right: 1%;
-    animation-delay: 1.8s;
-    font-size: 1.3rem;
-}
-
 @keyframes floatFlower {
     0% {
         transform: translateY(0) rotate(-5deg) scale(1);
@@ -258,199 +356,6 @@ body {
 
     100% {
         transform: translateY(-12px) rotate(5deg) scale(1.1);
-    }
-}
-
-/* Side flower branches */
-.side-flowers-left,
-.side-flowers-right {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    z-index: 2;
-    pointer-events: none;
-}
-
-.side-flowers-left {
-    left: -5px;
-}
-
-.side-flowers-right {
-    right: -5px;
-}
-
-.flower-branch {
-    font-size: 1.4rem;
-    animation: sway 3s ease-in-out infinite alternate;
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.1));
-}
-
-.branch-l {
-    animation-delay: 0s;
-}
-
-.branch-l2 {
-    animation-delay: 0.6s;
-    transform-origin: left center;
-}
-
-.branch-l3 {
-    animation-delay: 1.2s;
-}
-
-.branch-r {
-    animation-delay: 0.3s;
-    transform: scaleX(-1);
-}
-
-.branch-r2 {
-    animation-delay: 0.9s;
-    transform: scaleX(-1);
-}
-
-.branch-r3 {
-    animation-delay: 1.5s;
-    transform: scaleX(-1);
-}
-
-@keyframes sway {
-    0% {
-        transform: rotate(-8deg);
-    }
-
-    100% {
-        transform: rotate(8deg);
-    }
-}
-
-/* Heart shaped card */
-.heart-card {
-    position: relative;
-    width: 100%;
-    z-index: 1;
-    background: white;
-    border-radius: 50% 50% 12px 12px / 40% 40% 12px 12px;
-    padding: 50px 30px 40px;
-    box-shadow:
-        0 20px 60px rgba(132, 28, 28, 0.12),
-        0 0 0 1px rgba(223, 186, 107, 0.3),
-        inset 0 0 40px rgba(223, 186, 107, 0.05);
-    overflow: hidden;
-    box-sizing: border-box;
-}
-
-.heart-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 6px;
-    background: linear-gradient(90deg, transparent, #dfba6b 20%, #841c1c 50%, #dfba6b 80%, transparent);
-}
-
-.heart-card::after {
-    content: '';
-    position: absolute;
-    top: -30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle, rgba(223, 186, 107, 0.2), transparent 70%);
-    border-radius: 50%;
-}
-
-/* Heart shape bg decoration */
-.heart-shape-bg {
-    position: absolute;
-    top: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 24px;
-    background: linear-gradient(135deg, #841c1c 0%, #dfba6b 50%, #841c1c 100%);
-    border-radius: 0 0 40px 40px;
-    opacity: 0.15;
-}
-
-.heart-card-inner {
-    position: relative;
-    z-index: 2;
-}
-
-.cupid-icon {
-    font-size: 2.5rem;
-    margin-bottom: 8px;
-}
-
-.main-names {
-    font-family: 'Great Vibes', cursive;
-    font-size: 4.2rem;
-    color: #841c1c;
-    margin: 0 0 10px;
-    line-height: 1.1;
-    text-shadow: 0 2px 8px rgba(132, 28, 28, 0.15);
-}
-
-.golden-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 0 auto 22px;
-    color: #dfba6b;
-    font-size: 1.1rem;
-}
-
-.golden-divider::before,
-.golden-divider::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #dfba6b);
-}
-
-.golden-divider::after {
-    background: linear-gradient(90deg, #dfba6b, transparent);
-}
-
-.welcome-speech {
-    font-size: 0.82rem;
-    line-height: 1.9;
-    color: #555;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    font-weight: 400;
-}
-
-.scroll-arrow {
-    margin-top: 30px;
-    font-size: 1.2rem;
-    color: #dfba6b;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-        transform: translateY(0);
-    }
-
-    40% {
-        transform: translateY(-8px);
-    }
-
-    60% {
-        transform: translateY(-4px);
     }
 }
 
@@ -562,345 +467,6 @@ body {
     font-size: 0.6rem;
     text-transform: uppercase;
     opacity: 0.85;
-}
-
-/* ========== PAGE 4: MOSQUE ENHANCED ========== */
-.mosque-card {
-    position: relative;
-    padding: 0 !important;
-    overflow: hidden;
-    border: none !important;
-    border-radius: 16px !important;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
-}
-
-.mosque-bg-scene {
-    position: relative;
-    width: 100%;
-    height: 220px;
-    overflow: hidden;
-}
-
-.sky-gradient {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg,
-            #0f0c29 0%, #302b63 30%, #24243e 60%,
-            #8b4513 80%, #c0622e 90%, #e8954e 100%);
-}
-
-/* Stars */
-.stars-layer {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-}
-
-.star {
-    position: absolute;
-    color: rgba(255, 220, 130, 0.9);
-    font-size: 0.6rem;
-    animation: twinkle 2s ease-in-out infinite alternate;
-}
-
-.star:nth-child(1) {
-    top: 8%;
-    left: 10%;
-    animation-delay: 0s;
-    font-size: 0.5rem;
-}
-
-.star:nth-child(2) {
-    top: 12%;
-    left: 25%;
-    animation-delay: 0.4s;
-}
-
-.star:nth-child(3) {
-    top: 5%;
-    left: 42%;
-    animation-delay: 0.8s;
-    font-size: 0.7rem;
-}
-
-.star:nth-child(4) {
-    top: 15%;
-    left: 58%;
-    animation-delay: 0.2s;
-}
-
-.star:nth-child(5) {
-    top: 7%;
-    left: 72%;
-    animation-delay: 1s;
-    font-size: 0.5rem;
-}
-
-.star:nth-child(6) {
-    top: 18%;
-    left: 85%;
-    animation-delay: 0.6s;
-}
-
-.star:nth-child(7) {
-    top: 25%;
-    left: 5%;
-    animation-delay: 1.2s;
-    font-size: 0.4rem;
-}
-
-.star:nth-child(8) {
-    top: 22%;
-    left: 90%;
-    animation-delay: 0.3s;
-    font-size: 0.5rem;
-}
-
-@keyframes twinkle {
-    0% {
-        opacity: 0.3;
-        transform: scale(0.8);
-    }
-
-    100% {
-        opacity: 1;
-        transform: scale(1.3);
-    }
-}
-
-/* Moon */
-.moon-crescent {
-    position: absolute;
-    top: 6%;
-    right: 12%;
-    font-size: 2.8rem;
-    color: #ffd966;
-    filter: drop-shadow(0 0 10px rgba(255, 210, 80, 0.7));
-    animation: moonGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes moonGlow {
-    0% {
-        filter: drop-shadow(0 0 8px rgba(255, 210, 80, 0.5));
-    }
-
-    100% {
-        filter: drop-shadow(0 0 20px rgba(255, 210, 80, 0.9));
-    }
-}
-
-/* Mosque silhouette illustration */
-.mosque-illustration {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.mosque-silhouette {
-    position: relative;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.mosque-main-dome {
-    width: 80px;
-    height: 50px;
-    background: linear-gradient(180deg, #c9a227 0%, #8b6914 100%);
-    border-radius: 50% 50% 0 0;
-    box-shadow: 0 -3px 15px rgba(201, 162, 39, 0.5);
-    position: relative;
-    z-index: 3;
-}
-
-.mosque-main-dome::after {
-    content: '☪';
-    position: absolute;
-    top: -14px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1rem;
-    color: #ffd966;
-    filter: drop-shadow(0 0 6px rgba(255, 210, 80, 0.8));
-}
-
-.mosque-side-dome {
-    position: absolute;
-    top: 20px;
-    width: 45px;
-    height: 30px;
-    background: linear-gradient(180deg, #b8912b 0%, #7a5c12 100%);
-    border-radius: 50% 50% 0 0;
-    z-index: 2;
-}
-
-.mosque-side-dome-l {
-    left: 15px;
-}
-
-.mosque-side-dome-r {
-    right: 15px;
-}
-
-.mosque-body {
-    width: 160px;
-    height: 55px;
-    background: linear-gradient(180deg, #c9a227 0%, #8b6914 60%, #6b4e0a 100%);
-    position: relative;
-    z-index: 3;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 8px;
-    padding-bottom: 0;
-    border-radius: 2px 2px 0 0;
-}
-
-.mosque-arch {
-    width: 28px;
-    height: 38px;
-    background: rgba(0, 0, 0, 0.35);
-    border-radius: 50% 50% 0 0;
-    margin-bottom: 0;
-}
-
-.minaret {
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 4;
-}
-
-.minaret-l {
-    left: -12px;
-}
-
-.minaret-r {
-    right: -12px;
-}
-
-.minaret-shaft {
-    width: 12px;
-    height: 70px;
-    background: linear-gradient(180deg, #c9a227, #8b6914);
-}
-
-.minaret-balcony {
-    width: 20px;
-    height: 5px;
-    background: #dfba6b;
-    border-radius: 2px;
-    margin-bottom: -2px;
-}
-
-.minaret-top {
-    width: 8px;
-    height: 20px;
-    background: linear-gradient(180deg, #dfba6b, #c9a227);
-    border-radius: 50% 50% 0 0;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-}
-
-.mosque-reflection {
-    width: 200px;
-    height: 18px;
-    background: linear-gradient(180deg, rgba(201, 162, 39, 0.25), transparent);
-    filter: blur(2px);
-    transform: scaleY(-0.4);
-    margin-top: 1px;
-}
-
-.mosque-ground {
-    width: 100%;
-    height: 25px;
-    background: linear-gradient(180deg, #c0622e, #a04a1e);
-    position: absolute;
-    bottom: 0;
-}
-
-/* Ribbons */
-.ribbon-border-top,
-.ribbon-border-bottom {
-    position: absolute;
-    left: 12px;
-    right: 12px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #dfba6b, transparent);
-    z-index: 5;
-}
-
-.ribbon-border-top {
-    top: 228px;
-}
-
-.ribbon-border-bottom {
-    bottom: 12px;
-}
-
-.ribbon-border-left,
-.ribbon-border-right {
-    position: absolute;
-    top: 220px;
-    bottom: 12px;
-    width: 1px;
-    background: linear-gradient(180deg, transparent, #dfba6b, transparent);
-    z-index: 5;
-}
-
-.ribbon-border-left {
-    left: 12px;
-}
-
-.ribbon-border-right {
-    right: 12px;
-}
-
-/* Mosque text section */
-.mosque-text-section {
-    padding: 30px 25px 35px;
-    text-align: center;
-}
-
-.invitation-text {
-    font-size: 0.95rem;
-    line-height: 1.8;
-    color: #333;
-    margin: 0;
-}
-
-.invitation-text strong {
-    color: #841c1c;
-    font-family: 'Cinzel', serif;
-    display: block;
-    font-size: 1.15rem;
-    margin-top: 10px;
-    letter-spacing: 1px;
-}
-
-.time-info {
-    margin-top: 20px;
-}
-
-.hour {
-    font-family: 'Cinzel', serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #444;
-    margin: 0;
-}
-
-.welcome-footer {
-    font-family: 'Great Vibes', cursive;
-    font-size: 2.2rem;
-    color: #841c1c;
-    margin: 8px 0 0;
 }
 
 /* ========== PAGE 5: RSVP ========== */

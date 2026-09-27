@@ -2,15 +2,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiBM3K_JEW7Rw30r8YyLqa-gAVKThQVWiktAox8oearQxs7RaXyOAwZZYSXHiec0XA/exec";
 
-    // ===== CURTAIN =====
+    // ===== OPEN CURTAIN =====
+    const curtainRope = document.getElementById("curtainRope");
     const curtainSection = document.getElementById("curtainSection");
     const mainContent = document.getElementById("mainContent");
-    const openBtn = document.getElementById("openBtn");
 
-    if (openBtn) {
-        openBtn.addEventListener("click", () => {
+    // ===== MUZIKA =====
+    const YT_VIDEO_ID = "ivrumxRUz_Y";
+    const ytAudio = document.getElementById("ytAudio");
+    const musicCloseBtn = document.getElementById("musicCloseBtn");
+
+    function startMusic() {
+        if (!ytAudio) return;
+        ytAudio.src = `https://www.youtube.com/embed/${YT_VIDEO_ID}?autoplay=1&loop=1&playlist=${YT_VIDEO_ID}&controls=0`;
+        if (musicCloseBtn) musicCloseBtn.classList.remove("hidden");
+    }
+
+    if (musicCloseBtn) {
+        musicCloseBtn.addEventListener("click", () => {
+            if (ytAudio) ytAudio.src = "";
+            musicCloseBtn.classList.add("hidden");
+        });
+    }
+
+    if (curtainRope) {
+        curtainRope.addEventListener("click", () => {
             curtainSection.classList.add("open");
             mainContent.classList.remove("hidden");
+            curtainRope.style.pointerEvents = "none";
+            startMusic();
             handleScrollReveal();
         });
     }
@@ -26,6 +46,42 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     window.addEventListener("scroll", handleScrollReveal);
+
+    // ===== TIMELINE: shiriti i orarit që mbushet gjatë scroll =====
+    const timelineWrapper = document.getElementById("timelineWrapper");
+    const timelineFill = document.getElementById("timelineFill");
+    const timelineItems = document.querySelectorAll(".timeline-item");
+
+    function updateTimeline() {
+        if (!timelineWrapper || !timelineFill) return;
+
+        const rect = timelineWrapper.getBoundingClientRect();
+        const viewportH = window.innerHeight;
+
+        // fillon të mbushet kur maja e shiritit arrin 80% të ekranit
+        // mbushet plot kur fundi i shiritit arrin 30% të ekranit
+        const startPoint = viewportH * 0.8;
+        const endPoint = viewportH * 0.3;
+        const total = rect.height + (startPoint - endPoint);
+        const scrolled = startPoint - rect.top;
+
+        let progress = scrolled / total;
+        progress = Math.max(0, Math.min(1, progress));
+
+        timelineFill.style.height = (progress * 100) + "%";
+
+        timelineItems.forEach((item) => {
+            const itemRect = item.getBoundingClientRect();
+            const itemCenter = itemRect.top - rect.top + itemRect.height / 2;
+            const itemProgress = itemCenter / rect.height;
+            if (progress >= itemProgress) {
+                item.classList.add("active");
+            }
+        });
+    }
+    window.addEventListener("scroll", () => requestAnimationFrame(updateTimeline));
+    window.addEventListener("resize", () => requestAnimationFrame(updateTimeline));
+    updateTimeline();
 
     // ===== SCRATCH CARDS =====
     const canvases = [
@@ -95,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ===== COUNTDOWN =====
-    const targetDate = new Date("July 7, 2026 00:00:00").getTime();
+    const targetDate = new Date("October 18, 2026 00:00:00").getTime();
     setInterval(function () {
         const now = new Date().getTime(); const difference = targetDate - now;
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));

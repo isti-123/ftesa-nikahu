@@ -14,55 +14,29 @@
     <div class="curtain-container" id="curtainSection">
         <div class="curtain left-curtain"></div>
         <div class="curtain right-curtain"></div>
-        <div class="welcome-btn" id="openBtn">
-            <span class="btn-hand">👆</span>
-            <span class="btn-text">Hap Ftesën</span>
-        </div>
+        <div class="curtain-rope" id="curtainRope"></div>
+        <div class="curtain-top"></div>
     </div>
+    <!-- Butoni u zëvendësua: litari (curtain-rope) tani është vetë butoni i hapjes -->
 
     <canvas id="fireworksCanvas"></canvas>
     <canvas id="goldParticlesCanvas"></canvas>
 
+    <!-- ===== MUZIKA (fillon kur klikohet litari) ===== -->
+    <div style="position:fixed;width:0;height:0;overflow:hidden;">
+        <iframe id="ytAudio" width="1" height="1" frameborder="0" allow="autoplay; encrypted-media"
+            title="Muzika e nikahut"></iframe>
+    </div>
+    <button id="musicCloseBtn" class="music-close-btn hidden" title="Ndal muzikën">
+        <i class="fa-solid fa-volume-high"></i>
+    </button>
+
     <div class="invitation-container hidden" id="mainContent">
 
-        <!-- PAGE 1: Heart shaped hero -->
-        <section class="page profile-page" id="page1">
-            <div class="heart-frame-wrapper">
-                <div class="floating-flowers">
-                    <span class="fl fl1">🌸</span>
-                    <span class="fl fl2">🌺</span>
-                    <span class="fl fl3">🌹</span>
-                    <span class="fl fl4">🌸</span>
-                    <span class="fl fl5">💐</span>
-                    <span class="fl fl6">🌺</span>
-                    <span class="fl fl7">🌸</span>
-                    <span class="fl fl8">🌹</span>
-                </div>
-                <div class="heart-card">
-                    <div class="heart-shape-bg"></div>
-                    <div class="heart-card-inner">
-                        <div class="cupid-icon">🏹</div>
-                        <h1 class="main-names">Isti & Neda</h1>
-                        <div class="golden-divider"><span>✦</span></div>
-                        <p class="welcome-speech">
-                            YOU ARE CORDIALLY INVITED TO CELEBRATE THE WEDDING OF<br><br>
-                            Me emrin e Zotit, të Plotfuqishmit dhe Mëshirëplotit,
-                            kemi nderin dhe kënaqësinë t'ju ftojmë të bëheni pjesë e kapitullit tonë më të bukur.
-                            Udhëtimi ynë fillon këtu...
-                        </p>
-                        <div class="scroll-arrow"><i class="fa-solid fa-chevron-down"></i></div>
-                    </div>
-                </div>
-                <div class="side-flowers-left">
-                    <div class="flower-branch branch-l">🌿</div>
-                    <div class="flower-branch branch-l2">🌷</div>
-                    <div class="flower-branch branch-l3">🌸</div>
-                </div>
-                <div class="side-flowers-right">
-                    <div class="flower-branch branch-r">🌿</div>
-                    <div class="flower-branch branch-r2">🌷</div>
-                    <div class="flower-branch branch-r3">🌸</div>
-                </div>
+        <!-- PAGE 1: Dizajn i personalizuar (imazh nga GIMP) -->
+        <section class="page" id="page1">
+            <div class="page1-image-wrapper">
+                <img src="images/page1.png" alt="Isti & Neda - Ftesë Nikahu" class="page1-img">
             </div>
         </section>
 
@@ -74,11 +48,11 @@
                 <div class="scratch-wrapper">
                     <div class="scratch-item">
                         <canvas id="canvasDay" width="100" height="100"></canvas>
-                        <div class="secret-value">7</div>
+                        <div class="secret-value">18</div>
                     </div>
                     <div class="scratch-item">
                         <canvas id="canvasMonth" width="100" height="100"></canvas>
-                        <div class="secret-value">Korrik</div>
+                        <div class="secret-value">Tetor</div>
                     </div>
                     <div class="scratch-item">
                         <canvas id="canvasYear" width="100" height="100"></canvas>
@@ -110,56 +84,53 @@
             </div>
         </section>
 
-        <!-- PAGE 4: Mosque - ENHANCED -->
+        <!-- PAGE 4: Dizajn i personalizuar i xhamisë (imazh nga GIMP) -->
         <section class="page scroll-reveal" id="page4">
-            <div class="content-box mosque-card">
-                <div class="mosque-bg-scene">
-                    <div class="sky-gradient"></div>
-                    <div class="stars-layer">
-                        <span class="star">✦</span><span class="star">✦</span><span class="star">✦</span>
-                        <span class="star">✦</span><span class="star">✦</span><span class="star">✦</span>
-                        <span class="star">✦</span><span class="star">✦</span>
+            <div class="page4-image-wrapper">
+                <img src="images/page4.png" alt="Xhamia e Namazgjasë" class="page4-img">
+            </div>
+        </section>
+
+        <!-- PAGE 4b: Orari i ditës - shirit që mbushet gjatë scroll -->
+        <section class="page scroll-reveal" id="pageTimeline">
+            <div class="content-box timeline-card">
+                <h2 class="section-title">Dita e Madhe</h2>
+                <p class="instructions">Çfarë do të ndodhë, hap pas hapi</p>
+
+                <div class="timeline-wrapper" id="timelineWrapper">
+                    <div class="timeline-line">
+                        <div class="timeline-line-fill" id="timelineFill"></div>
                     </div>
-                    <div class="moon-crescent">☽</div>
-                    <div class="mosque-illustration">
-                        <div class="mosque-silhouette">
-                            <div class="mosque-main-dome"></div>
-                            <div class="mosque-side-dome mosque-side-dome-l"></div>
-                            <div class="mosque-side-dome mosque-side-dome-r"></div>
-                            <div class="mosque-body">
-                                <div class="mosque-arch"></div>
-                                <div class="mosque-arch"></div>
-                                <div class="mosque-arch"></div>
-                            </div>
-                            <div class="minaret minaret-l">
-                                <div class="minaret-top"></div>
-                                <div class="minaret-shaft"></div>
-                                <div class="minaret-balcony"></div>
-                            </div>
-                            <div class="minaret minaret-r">
-                                <div class="minaret-top"></div>
-                                <div class="minaret-shaft"></div>
-                                <div class="minaret-balcony"></div>
+
+                    <div class="timeline-items">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Ora 10:30</span>
+                                <p class="timeline-text">Takimi në xhami</p>
                             </div>
                         </div>
-                        <div class="mosque-reflection"></div>
-                        <div class="mosque-ground"></div>
-                    </div>
-                </div>
-
-                <div class="ribbon-border-top"></div>
-                <div class="ribbon-border-bottom"></div>
-                <div class="ribbon-border-left"></div>
-                <div class="ribbon-border-right"></div>
-
-                <div class="mosque-text-section">
-                    <p class="invitation-text">
-                        Jeni të ftuar në nikahun tonë, për gëzimin tonë më të madh ku bashkohen dy shpirtra tek
-                        <strong>Xhamia e Namazgjasë</strong>.
-                    </p>
-                    <div class="time-info">
-                        <p class="hour">Ora 12:00</p>
-                        <p class="welcome-footer">Ju mirëpresim!</p>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Ora 11:00</span>
+                                <p class="timeline-text">Fillimi i nikahut</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Ora 12:30</span>
+                                <p class="timeline-text">Dreka në restorant</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <span class="timeline-time">Ora 15:00</span>
+                                <p class="timeline-text">Fundi i eventit</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
